@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Lägg till rotation{% endblock %}
+
+{% block content %}
+  <h1>Lägg till rotation</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Spara</button>
+  </form>
+{% endblock %}

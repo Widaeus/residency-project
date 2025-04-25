@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Residency Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-css-reset/dist/reset.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 1rem 2rem;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #0366d6;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      padding: 1rem 0;
+    }
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="{% url 'rotations:list' %}">Dashboard</a>
+        <a href="{% url 'rotations:add' %}">Ny rotation</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logga ut</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="container">
+      &copy; {{ now|date:"Y" }} Jacob Widaeus, M.D. |
+      <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
+        MIT License <span title="MIT License">🄼</span>
+      </a>
+    </div>
+  </footer>
+  
+  {% load django_browser_reload %}
+  {% django_browser_reload_script %}
+</body>
+</html>

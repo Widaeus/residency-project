@@ -1,0 +1,3 @@
+django>=4.2
+django-browser-reload
+psycopg2-binary

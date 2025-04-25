@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: tracker
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: residency
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "until pg_isready -h \$DB_HOST -p \$DB_PORT; do sleep 1; done &&
+            python manage.py migrate &&
+            exec python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    
+
+
+volumes:
+  db_data:

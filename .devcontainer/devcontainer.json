@@ -1,0 +1,20 @@
+{
+  "name": "Residency-Project",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "web",
+  "workspaceFolder": "/code",
+  "runServices": [
+    "db",
+    "web"
+  ],
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [
+    8000
+  ],
+  "extensions": [
+    "ms-python.python",
+    "ms-azuretools.vscode-docker"
+  ]
+}

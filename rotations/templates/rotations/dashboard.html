@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Mina rotationer{% endblock %}
+
+{% block content %}
+  <h1>Dashboard</h1>
+  {% if rotations %}
+    <ul>
+      {% for rot in rotations %}
+        <li>
+          <strong>{{ rot.service }}</strong>
+          ({{ rot.start_date }} → {{ rot.end_date }})
+          – {{ rot.months }} mån
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Du har inga sparade rotationer än.</p>
+  {% endif %}
+{% endblock %}
